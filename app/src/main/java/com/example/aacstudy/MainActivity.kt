@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
             fun onStop(source: LifecycleOwner) {
                 println("ON_STOP : ${source.lifecycle.currentState.name}")
+                source.lifecycle.removeObserver(this)
             }
 
             @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
