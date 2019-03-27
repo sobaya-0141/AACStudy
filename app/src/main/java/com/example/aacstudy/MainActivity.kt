@@ -1,6 +1,5 @@
 package com.example.aacstudy
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -12,10 +11,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MainLiveData().observe(this, Observer {  })
+        val liveData = MainLiveData()
 
-        button.setOnClickListener {
-            startActivity(Intent(this, SubActivity::class.java))
+        toggle.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                liveData.observe(this, Observer {
+                    println(it)
+                })
+            } else {
+                liveData.removeObservers(this)
+            }
         }
     }
 }
