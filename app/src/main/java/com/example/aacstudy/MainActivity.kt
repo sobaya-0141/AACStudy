@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             liveData.postValue("a")
-            liveData.value = "b"
+            liveData.postValue("b")
         }
     }
 }
