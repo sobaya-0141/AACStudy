@@ -1,8 +1,8 @@
 package com.example.aacstudy
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -12,15 +12,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val liveData = MutableLiveData<String>()
-
-        liveData.observe(this, Observer {
-            println(it)
-        })
+        MainLiveData().observe(this, Observer {  })
 
         button.setOnClickListener {
-            liveData.postValue("a")
-            liveData.postValue("b")
+            startActivity(Intent(this, SubActivity::class.java))
         }
     }
 }
