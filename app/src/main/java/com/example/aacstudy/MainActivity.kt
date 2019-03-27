@@ -7,20 +7,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val liveData = CountUpLiveData()
+    private val observer = Observer<Int> { println("observeForever : $it") }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val liveData = MainLiveData()
+        liveData.observe(this, Observer { println(it) })
+        liveData.observeForever(observer)
+    }
 
-        toggle.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                liveData.observe(this, Observer {
-                    println(it)
-                })
-            } else {
-                liveData.removeObservers(this)
-            }
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        liveData.removeObserver(observer)
     }
 }
