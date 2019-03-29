@@ -2,8 +2,8 @@ package com.example.aacstudy
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,8 +11,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Transformations
-            .map(CountUpLiveData()) { it * it }
+        MediatorLiveData<Int>()
+            .apply {
+                val source = CountUpLiveData()
+                addSource(source) {
+                    if (it < 10) {
+                        value = it * it
+                    } else {
+                        removeSource(source)
+                    }
+                }
+            }
             .observe(this, Observer {
                 println(it)
             })
