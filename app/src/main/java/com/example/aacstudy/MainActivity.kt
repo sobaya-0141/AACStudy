@@ -10,10 +10,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(MainFragment(), "MainFragment")
+                .commit()
+        }
+
         val viewModel1 = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        val viewModel2 = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
         println("viewModel1 : $viewModel1")
-        println("viewModel2 : $viewModel2")
     }
 }
