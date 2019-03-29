@@ -3,7 +3,7 @@ package com.example.aacstudy
 import android.os.Handler
 import androidx.lifecycle.LiveData
 
-class CountUpLiveData : LiveData<Int>() {
+class CountUpLiveData2 : LiveData<Int>() {
 
     private var count = 0
     private val handler = Handler()
@@ -15,7 +15,5 @@ class CountUpLiveData : LiveData<Int>() {
 
     private fun next() { handler.postDelayed(r, 1000) }
 
-    override fun onActive() { next() }
-
-    override fun onInactive() { handler.removeCallbacks(r) }
-}
+    fun start() { next() }
+    fun stop() { handler.removeCallbacks(r) } }
