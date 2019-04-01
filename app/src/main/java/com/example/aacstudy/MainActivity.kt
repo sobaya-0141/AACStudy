@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +16,9 @@ class MainActivity : AppCompatActivity() {
             .of(this)
             .get(MainViewModel::class.java)
 
-        viewModel.countUpLiveData.observe(this, Observer {
+        button.setOnClickListener { viewModel.countUp() }
+
+        viewModel.liveData.observe(this, Observer {
             println(it)
         })
     }
